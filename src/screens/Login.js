@@ -11,6 +11,16 @@ const Login = () => {
 const navigation = useNavigation() 
 const [email, setEmail] = useState('')
 const [password, setPassword] = useState('')
+const changePassword = () =>{
+    firebase.auth().sendPasswordResetEmail(email)
+    .then(()=>{
+      alert("Password reset email sent")
+    }).catch((error) => {
+      alert(error)
+    })
+   }
+
+
 
 loginUser = async(email,password)=>{
     try {
@@ -67,7 +77,8 @@ loginUser = async(email,password)=>{
             <Text style={styles.buttonText}> Login </Text>
             </TouchableOpacity>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity
+        onPress={()=>{changePassword()}}>
         <Text style={styles.forgot}> Forgot password? </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>navigation.navigate('Login2')}>
