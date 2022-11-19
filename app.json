@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "Catstronomy",
+    "slug": "Catstronomy",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
