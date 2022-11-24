@@ -19,7 +19,7 @@ const HomeScreen = ( {navigation} ) => {
         <Image source={require('../images/HomeScreenCat.png')} style={{width: wp(90),
         height:hp(50), marginTop:80, marginLeft:100}}/>
         </View>
-        <TouchableOpacity style={{backgroundColor:'#A6599E', width:wp(50), alignSelf:'center', flexDirection:'row',
+        <TouchableOpacity style={{backgroundColor:'#ff85a2', width:wp(50), alignSelf:'center', flexDirection:'row',
       height:hp(6), marginTop:3, borderRadius:20}} onPress={()=>navigation.navigate('Login')}>
           <Text style={{alignSelf:'center', color:'white', marginLeft:80}}> Sign In </Text>
         </TouchableOpacity>
