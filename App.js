@@ -45,7 +45,6 @@ if (initialiiazing) return null;
  if (!user){
   return (
     <Stack.Navigator>
-      <Stack.Screen name='HomePage' component={HomeScreen}/>
       <Stack.Screen
       name='Login'
       component={Login}

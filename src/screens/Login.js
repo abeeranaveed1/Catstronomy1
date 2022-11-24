@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, ImageBackground, TextInput } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import React, {useState} from 'react';
 import 'react-native-gesture-handler';
@@ -35,140 +35,50 @@ loginUser = async(email,password)=>{
 
 
   return (
-    <View style={[styles.background, {backgroundColor: theme.colors.primary, shadowOffset: {
-        width: wp(0),
-        height: hp(12),
-    },
-    shadowOpacity: 0.58,
-    shadowRadius: 16.00,
+    <View style={{margin:0,backgroundColor:'#f8c8dc', width:wp(100), height:hp(100)}}>
+    <View style={{width:wp(100), height:hp(22), backgroundColor:'orange', alignItems:'center', justifyContent:'center'}}>
+    <Image source={require('../images/Signup.png')} style={{width:wp(100), height:hp(22)}}/>
+    </View>
+    <View>
+        <Text style={{fontSize:35, alignSelf:'center', color: '#A6599E'}}> MEOWCOME BACK! </Text>
+    </View>
+    <View style={{ width:wp(100), height:hp(15), alignItems:'center', justifyContent:'space-between', marginTop:20}}>
+        <TextInput style={{borderBottomColor:'violet', borderBottomWidth:1, width:wp(50)}}
+        placeholder='Email Address'
+        onChangeText={(email)=> setEmail(email)}
+        autoCapitalize='none'
+        autoCorrect={false} />
+        <TextInput style={{borderBottomColor:'violet', borderBottomWidth:.9, width:wp(50)}}
+        placeholder='Password'
+        onChangeText={(password)=> setPassword(password)}
+        secureTextEntry={true}
+        autoCapitalize='none'
+        autoCorrect={false} />
+      </View>
+      <TouchableOpacity style={{alignItems:'center', width:wp(74), marginTop:5}}>
+      <Text style={{color:'#A6599E', fontWeight:'bold', fontSize:12}}
+      onPress={()=>{changePassword()}} > Forget Password? </Text>
+      </TouchableOpacity>
+      <View style={{ width:wp(100), height:hp(8), justifyContent:'center', alignItems:'center', marginTop:40}}>
+      <TouchableOpacity style={{backgroundColor:'#ff85a2', width:wp(50), height:hp(5), borderRadius:20}}
+      onPress={()=> loginUser(email,password)} >
+        <Text style={{alignSelf:'center', alignItems:'center', alignContent:'center', marginTop:5, color:'white'}}> Login </Text>
+      </TouchableOpacity>
+      </View>
+      <View style={{width:wp(100), height:hp(8), justifyContent:'center', alignItems:'center', flexDirection:'row'}}>
+      <Text> Don't have an account? </Text>
+      <TouchableOpacity onPress={()=>navigation.navigate('Login2')}>
+        <Text style={{alignSelf:'center', alignItems:'center', alignContent:'center',color:'#A6599E'}}> Sign in </Text>
+      </TouchableOpacity>
+      </View>
+    </View>
     
-    elevation: 24, shadowColor: theme.colors.primaryContainer}]}> 
-    <View style={styles.Body}>
-        <Text style={styles.Heading}> Catstronomy </Text>
-       <Text style={styles.bodytext}> Login </Text> 
-       <View style={styles.LoginForm}> 
-       <Text style={styles.formText}> Email Address </Text>
-       <View style={styles.inputbox}>
-       <TextInput
-                style={styles.inputStyle}
-                placeholder="Enter Email"
-                onChangeText={(email)=> setEmail(email)}
-                placeholderTextColor="white"
-                autoCapitalize='none'
-                autoCorrect={false}
-                />
-                </View> 
-                <Text style={styles.formText}> Password </Text>
-       <View style={styles.inputbox}>
-       <TextInput
-                style={styles.inputStyle}
-                placeholder="Enter Password"
-                secureTextEntry={true}
-                placeholderTextColor="white"
-                onChangeText={(password)=> setPassword(password)}
-                autoCapitalize='none'
-                autoCorrect={false}
-                />
-                </View> 
-        </View>
-        <View style={styles.loginButton}>
-            <TouchableOpacity 
-            onPress={()=> loginUser(email,password)}>
-            <Text style={styles.buttonText}> Login </Text>
-            </TouchableOpacity>
-        </View>
-        <TouchableOpacity
-        onPress={()=>{changePassword()}}>
-        <Text style={styles.forgot}> Forgot password? </Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>navigation.navigate('Login2')}>
-        <Text style={styles.register}> Not registered? Sign-In </Text>
-        </TouchableOpacity>
-    </View>
-    </View>
   )
 }
 
 export default Login
 
 const styles = StyleSheet.create({
-    Body: {
-        borderRadius: 12,
-        backgroundColor: 'white',
-        height: hp(70),
-        width: wp(80),
-        marginLeft: 40,
-        marginTop: 70 
-    },
-
-    bodytext: {
-        color: 'blue',
-        fontSize: 30,
-        textAlign: 'center',
-        marginTop: 40,
-        marginBottom: 60,
-    },
-    inputStyle: {
-        flexDirection: 'row',
-        fontSize: 10
-    },
-    inputbox: {
-        height: hp(4),
-        width: wp(50),
-        backgroundColor: 'brown',
-        borderRadius: 4,
-        marginLeft: 60,
-        flexDirection: 'row',
-        justifyContent: 'center',
-    },
-
-    formText: {
-        fontSize: 15,
-        marginTop: 10,
-        marginBottom: 10,
-        textAlign: 'left',
-        marginLeft: 57
-    },
-
-    Heading:{
-        textAlign: 'center',
-        fontSize: 30,
-        marginTop: 40
-    },
     
-    loginButton: {
-        marginTop: 30,
-        flextDirecttion: 'row',
-        backgroundColor: 'brown',
-        width: wp(50),
-        justifyContent: 'center',
-        marginLeft: 60,
-        borderRadius: 4,
-        height: hp(4)
-    },
-    buttonText: {
-        textAlign: 'center',
-        color: 'white'
-    },
-    forgot: {
-        textAlign: 'center',
-        fontSize: 10,
-        marginTop: 6,
-        marginRight: 128,
-        color: 'blue'
-    },
-    register: {
-        textAlign: 'center',
-        fontSize: 10,
-        marginTop: 6,
-        marginRight: 105,
-        color: 'blue'
-    },
-    background: {
-        backgroundColor: '#eab676',
-   height: hp(100),
-   width: wp(100),
-  flexDirection: 'row'
-    }
 
 })
