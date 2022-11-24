@@ -7,23 +7,23 @@ import Login from '../screens/Login';
 import Login2 from '../screens/Login2';
 import Dashboard from '../screens/Dashboard';
 import Forgot_Password from '../screens/Forgot_Password';
-//const navigator = () => {
-  //  const Stack = createNativeStackNavigator();
-  //return (
+const navigator = () => {
+    const Stack = createNativeStackNavigator();
+  return (
     
   
-  //    <Stack.Navigator initialRouteName='HomeScreen'>
-    //    <Stack.Screen name="Dashboard" component={Dashboard}/>
-      //  <Stack.Screen name='HomeScreen' component={HomeScreen}/>
-      //  <Stack.Screen name='Login' component={Login} />
-     //   <Stack.Screen name ='Login2' component={Login2}/>
-    //    <Stack.Screen name="password" component={Forgot_Password}/>
-   //   </Stack.Navigator>
+      <Stack.Navigator initialRouteName='HomeScreen'>
+        <Stack.Screen name="Dashboard" component={Dashboard}/>
+        <Stack.Screen name='HomeScreen' component={HomeScreen}/>
+        <Stack.Screen name='Login' component={Login} />
+        <Stack.Screen name ='Login2' component={Login2}/>
+        <Stack.Screen name="password" component={Forgot_Password}/>
+      </Stack.Navigator>
   
    
-  //)
-//}
+  )
+}
 
-//export default navigator
+export default navigator
 
 const styles = StyleSheet.create({})
