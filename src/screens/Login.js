@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { firebase } from '../../config'
 
 
+
 const Login = () => {
 const navigation = useNavigation() 
 const [email, setEmail] = useState('')
@@ -16,7 +17,7 @@ const changePassword = () =>{
     .then(()=>{
       alert("Password reset email sent")
     }).catch((error) => {
-      alert(error)
+      alert("Please don't leave field blank")
     })
 }
 
@@ -25,9 +26,9 @@ const changePassword = () =>{
 loginUser = async(email,password)=>{
     try {
         await firebase.auth().signInWithEmailAndPassword(email,password)
-    } catch (error) {
-        alert("Username or password is incorrect");
-    }
+  }catch(error) {
+       alert("email or password does not exist")
+}
 }
 
 

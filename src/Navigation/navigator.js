@@ -6,7 +6,6 @@ import HomeScreen from '../screens/HomeScreen';
 import Login from '../screens/Login';
 import Login2 from '../screens/Login2';
 import Dashboard from '../screens/Dashboard';
-import Forgot_Password from '../screens/Forgot_Password';
 const navigator = () => {
     const Stack = createNativeStackNavigator();
   return (

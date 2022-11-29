@@ -19,9 +19,76 @@ const Login2 = ({navigation}) => {
   const [password, setPassword] = useState('');
   const [lastName, setLastName] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
+  const [emailError,setemailError]=useState('')
+  const [passwordError,setpasswordError]=useState('')
+  const [textFieldError,settextFieldError]=useState('')
+// const [phoneNumber, setPhoneNumber] = useState('')
+  
 
-  registerUser = async(email,password,firstName,lastName, gender) =>{
+const Emailvalidation=()=>{
+   if( email.length === 0){
+    setemailError("email cannot be left blank")
+  } else if(!email.includes('@')){
+    setemailError("Invalid email")
+  } else if( email.indexOf(' ') >= 0){
+    setemailError("Email cannot have empty spaces")
+  }else{
+    setemailError('');
+  }}
+
+
+  const passwordValidation=()=>{
+    if( password.length===0){setpasswordError("password field cannot be left blank")
+  }
+  else if(confirmPassword.length===0){
+    setpasswordError('please retype password')
+  }
+
+  else if( password.length<6){
+    setpasswordError("password must be more than 6 characters")
+  } else 
+  if( password!==confirmPassword ){
+    setpasswordError("passwords do not match")
+  }
+  else  if( password.indexOf(' ') >= 0){
+    setemailError("password cannot contain empty spaces")
+  }
+  else{
+    
+    setpasswordError('');
+  }
+
+  }
+  
+ 
+
+const textValidation=()=>{
+  if(firstName.length===0 || lastName.length===0){
+    settextFieldError("Text fields cannot be left blank")
+  }
+  else{
+    settextFieldError('');
+  }
+}
+
+
+const validation = ()=>{
+  Emailvalidation();
+  passwordValidation();
+  textValidation();
+}
+ 
+
+
+
+  const registerUser = async(email,password,firstName,lastName, gender) =>{
+    if (!email || !password || !firstName || !lastName || !gender){
+      return alert("all fields are mandatory");
+    }
+    if (password !==confirmPassword){
+      return alert("Password does not match")
+
+    }
       await firebase.auth().createUserWithEmailAndPassword(email,password)
       .then(()=>{
         firebase.auth().currentUser.sendEmailVerification({
@@ -30,9 +97,14 @@ const Login2 = ({navigation}) => {
         })
         .then(()=>{
           alert("Confirmation email sent")
-        }).catch((error)=>{
-          alert(error.message)
+        }).catch((e)=>{
+          console.log(error.message);
+          validation();
+          if(error?.message){
+            alert(error.message)
+          }
         })
+        
         .then(()=>{
           firebase.firestore().collection('users')
           .doc(firebase.auth().currentUser.uid)
@@ -41,28 +113,22 @@ const Login2 = ({navigation}) => {
             lastName,
             email,
             gender, 
-            password,
-            phoneNumber
+            password
           })
         })
         .catch((error)=>{
-          alert(error.message)
+          console.log(error.message);
+          validation();
         })
 
       })
       .catch ((error => {
-
-      alert(error.message)
+        console.log(error.message);
+        validation();
       
-    }))
-    
-    if(password === confirmPassword){
-
-    } else{
-      alert(error.message)
-    }
-  }
-
+    }))}
+  
+  
 
 
   //const theme = useTheme();
@@ -71,34 +137,53 @@ const Login2 = ({navigation}) => {
   return (
     <View style={{backgroundColor: theme.colors.primary, width: wp(100), height: hp(100),flexDirection:'column',flex:1, justifyContent: 'center'}}>
       <View style={{backgroundColor: theme.colors.secondaryContainer, width: wp(90), borderRadius: 8
-    , height: hp(85), alignSelf: 'center', alignItems: 'center', justifyContent: 'space-around'}}>
+    , height: hp(85), alignSelf: 'center', alignItems: 'center', justifyContent: 'space-evenly'}}>
       
       <Avatar.Icon size={64} icon="account" color='orange' style={{backgroundColor:'grey', marginTop: 5}}/>
       <Text> User Profile </Text>
       <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
       <TextInput style={styles.textformfirst} placeholder="First Name" placeholderTextColor="white"
       autoCorrect={false}
-      onChangeText={(firstName)=> setFirstName(firstName)}/>
+
+      onChangeText={(value)=>{
+        if(!value) return setFirstName("")
+        isEnglishChars(value) && setFirstName(value)
+      }}
+      value={firstName}/>
       <TextInput style={styles.textformSecond} placeholder="Last Name"placeholderTextColor="white"
       autoCorrect={false}
-      onChangeText={(lastName)=> setLastName(lastName)}/>
+      onChangeText={(value)=>{
+        if(!value) return setLastName("")
+        isEnglishChars(value) && setLastName(value)
+      }}
+      value={lastName}/>
       </View>
+      <Text style={{color:'red',position:'absolute',top:215,left:20}}> {textFieldError} </Text>
+      <View>
       <TextInput style={styles.textform} placeholder="Email Address"placeholderTextColor="white"
       onChangeText={(email)=> setEmail(email)}
       autoCorrect={false}
       autoCapitalize='none'
-      keyboardType='email-address'/>
+      keyboardType='email-address'
+      value={email}/>
+      <Text style={{ color:'red'}}> {emailError} </Text>
+      
       <TextInput style={styles.textform} secureTextEntry={true} placeholder="Password"placeholderTextColor="white"
       onChangeText={(password)=> setPassword(password)}
       autoCapitalize='none'
-      autoCorrect={false} />
+      autoCorrect={false} 
+      value={password}/>
+      <Text style={{ color:'red'}}> {passwordError} </Text>
+
+      
       <TextInput style={styles.textform} secureTextEntry={true} placeholder="Retype Password"placeholderTextColor="white"
       onChangeText={(confirmPassword)=> setConfirmPassword(confirmPassword)}
       autoCapitalize='none'
       autoCorrect={false}
-      />
-      <TextInput style={styles.textformpw} placeholder="Phone Number"placeholderTextColor="white" keyboardType={'number-pad'}
-      onChangeText={(phoneNumber)=> setPhoneNumber(phoneNumber)}/>
+      value={confirmPassword} />
+      </View>
+      {/*<TextInput style={styles.textformpw} placeholder="Phone Number"placeholderTextColor="white" keyboardType={'number-pad'}
+      onChangeText={(phoneNumber)=> setPhoneNumber(phoneNumber)}/> */}
       <Text style={{}}> Gender </Text>
       <View style={{ flexDirection: 'row', flex: 0.15, justifyContent: 'space-between', alignItems: 'center'}}>
       <Text> Male </Text>
@@ -118,10 +203,11 @@ const Login2 = ({navigation}) => {
       />
       
       </View>
-      <Text> Date of Birth </Text>
+      {/* <Text> Date of Birth </Text> */}
       <View style={{width: wp(80), borderRadius: 10}}>
       <Button  color={'grey'} title='Register' 
-      onPress={()=> registerUser(email,password,firstName, lastName, gender)}/>
+      onPress={()=> {validation();
+      registerUser(email,password,firstName, lastName, gender);}} />
       </View>
     </View>
     </View>
@@ -164,4 +250,7 @@ const styles = StyleSheet.create({
   }
 })
 
-  
+const isEnglishChars = (chars) => {
+  const re = /^([a-zA-Z]+\s)*[a-zA-Z]+$/
+  return re?.test(chars?.split(/\n/));
+};
