@@ -43,12 +43,14 @@ if (initialiiazing) return null;
  if (!user){
   return (
     <Stack.Navigator>
-      <Stack.Screen name='Login2' component={Login2} />
+      <Stack.Screen name='HomeScreen' component={HomeScreen} />
       <Stack.Screen
       name='Login'
       component={Login}
       />
-   
+      <Stack.Screen
+      name='Login2'
+      component={Login2}/>
     </Stack.Navigator>
   );
  }
