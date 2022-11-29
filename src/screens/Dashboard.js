@@ -5,8 +5,8 @@ import {firebase} from '../../config'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 
-const Dashboard = (navigator) => {
-   const [name,setName] = useState('')
+const Dashboard = () => {
+   const [name , setName] = useState('')
 
    useEffect(()=>{
     firebase.firestore().collection('users')
@@ -25,13 +25,13 @@ const Dashboard = (navigator) => {
   return (
     <View>
       <Navbar/>
-      <SafeAreaView>
-        <Text> Welcome {name.firstName}</Text>
+ 
+        <Text style={{color:'black', fontWeight:'bold'}}> Welcome {name.firstName} {name.lastName}</Text>
       <TouchableOpacity onPress={()=> {firebase.auth().signOut()}}>
       <Text> Logout </Text>
       </TouchableOpacity>
       
-      </SafeAreaView>
+     
     </View>
   )
 }
