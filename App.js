@@ -1,7 +1,5 @@
+import 'react-native-gesture-handler';
 import React from 'react';
-import Appnavigation from './src/Navigation/navigator'
-import ThemeContext from './src/CustomProperties/Theme2';
-import theme from './src/CustomProperties/Theme';
 import { NavigationContainer } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
 import {firebase} from './config'
@@ -10,8 +8,17 @@ import Login from './src/screens/Login';
 import Login2 from './src/screens/Login2'
 import HomeScreen from './src/screens/HomeScreen';
 import Dashboard from './src/screens/Dashboard';
+import FAQ from './src/drawer-screens/FAQ';
+import CatProfile from './src/drawer-screens/CatProfileManagement'
+import Vets from './src/drawer-screens/Vets'
+import {createDrawerNavigator} from '@react-navigation/drawer'
+import Sidebar from './src/Navigation/Sidebar';
+import { theme3 } from './src/CustomProperties/Theme3';
+import { Provider } from 'react-native-paper';
 
 
+
+const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
 
@@ -31,7 +38,6 @@ function onAuthStateChanged(user){
 }
 
 
-
 useEffect(()=>{
   const person = firebase.auth().onAuthStateChanged(onAuthStateChanged);
   return person;
@@ -43,7 +49,6 @@ if (initialiiazing) return null;
  if (!user){
   return (
     <Stack.Navigator>
-      
       <Stack.Screen name='HomeScreen' component={HomeScreen} />
       <Stack.Screen
       name='Login'
@@ -57,30 +62,24 @@ if (initialiiazing) return null;
  }
 
  return(
- <Stack.Navigator>
-   <Stack.Screen
-   name='Dashboard'
-    component={Dashboard}
+  <Drawer.Navigator drawerContent={props=><Sidebar {...props}/>} initialRouteName='Dashboard'>
+        <Drawer.Screen name="Dashboard" component={Dashboard}/>
+        <Drawer.Screen name='Cat Profile' component={CatProfile}/>
+        <Drawer.Screen 
+   name='FAQ' 
+   component={FAQ}
+   /><Drawer.Screen 
+   name='Locate Vets' 
+   component={Vets}
    />
-</Stack.Navigator>
- );
-
- 
-  return (
-    <ThemeContext.Provider value={theme}>
-    <NavigationContainer>
-    <Appnavigation/>
-    </NavigationContainer>
-    </ThemeContext.Provider>
-    )
-}
-
-//export default App();
+      </Drawer.Navigator>);}
 
 export default ()=>{
   return(
+    <Provider theme={theme3}>
     <NavigationContainer>
       <App/>
     </NavigationContainer>
+    </Provider>
   )
 }
