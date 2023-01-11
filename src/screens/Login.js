@@ -5,6 +5,7 @@ import 'react-native-gesture-handler';
 import theme from '../CustomProperties/Theme';
 import { useNavigation } from '@react-navigation/native';
 import { firebase } from '../../config'
+import Styling from '../CustomProperties/Theme2';
 
 
 
@@ -41,7 +42,7 @@ loginUser = async(email,password)=>{
     <Image source={require('../images/Signup.png')} style={{width:wp(100), height:hp(22)}}/>
     </View>
     <View>
-        <Text style={{fontSize:35, alignSelf:'center', color: '#A6599E'}}> MEOWCOME BACK! </Text>
+        <Styling title='MEOWCOME BACK' style={{fontSize:50, alignSelf:'center', color: '#A6599E'}}/> 
     </View>
     <View style={{ width:wp(100), height:hp(15), alignItems:'center', justifyContent:'space-between', marginTop:20}}>
         <TextInput style={{borderBottomColor:'violet', borderBottomWidth:1, width:wp(50)}}

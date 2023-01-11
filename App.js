@@ -13,9 +13,7 @@ import CatProfile from './src/drawer-screens/CatProfileManagement'
 import Vets from './src/drawer-screens/Vets'
 import {createDrawerNavigator} from '@react-navigation/drawer'
 import Sidebar from './src/Navigation/Sidebar';
-import { theme3 } from './src/CustomProperties/Theme3';
 import { Provider } from 'react-native-paper';
-
 
 
 const Drawer = createDrawerNavigator();
@@ -25,7 +23,6 @@ const Stack = createStackNavigator();
 
 
 function App(){
-
 const [initialiiazing, setInitializing] = useState(true);
 const [user, setUser] = useState();
 
@@ -76,7 +73,7 @@ if (initialiiazing) return null;
 
 export default ()=>{
   return(
-    <Provider theme={theme3}>
+    <Provider>
     <NavigationContainer>
       <App/>
     </NavigationContainer>

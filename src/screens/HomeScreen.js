@@ -2,18 +2,16 @@ import { Button, Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import theme from '../CustomProperties/Theme';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
-
+import Styling from '../CustomProperties/Theme2';
 const HomeScreen = ( {navigation} ) => {
   return (
     <View style={{backgroundColor:'#f8c8dc', width:wp(100)
     , height: hp(100)}}>
       <View style={styles.chunk}> 
-        <Text style={{fontSize:25}}> WELCOME </Text>
-        <Text style={{fontSize:25}}> TO </Text>
-        <Text style={{fontSize:25, color: '#A6599E'}}> CATSTRONOMY </Text>
+        <Styling title='Welcome' style={{fontSize: 35}}/>
+        <Styling title='To' style={{fontSize:35}}/>
+        <Styling title='Catstronomy' style={{fontSize:35, color: '#A6599E'}}/>
         </View>
         <View style={{width:wp(100), height:hp(50)}}>
         <Image source={require('../images/HomeScreenCat.png')} style={{width: wp(70),
@@ -21,7 +19,7 @@ const HomeScreen = ( {navigation} ) => {
         </View>
         <TouchableOpacity style={{backgroundColor:'#ff85a2', width:wp(80), alignSelf:'center', flexDirection:'row',
       height:hp(6),borderRadius:20, marginTop:15}} onPress={()=>navigation.navigate('Login')}>
-          <Text style={{alignSelf:'center', color:'white', flexDirection:'row', marginLeft:140}}> Sign In </Text>
+          <Styling title='Signin' style={{fontSize: 18,alignSelf:'center', color:'white', flexDirection:'row', marginLeft:140}}/>
         </TouchableOpacity>
     </View>
   )
